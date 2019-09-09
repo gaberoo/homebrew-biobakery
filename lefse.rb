@@ -5,6 +5,8 @@ class Lefse < Formula
   version "1.0.0-dev-e3cabe9"
   sha256 "9d64aac0fdfd482639a4df21fdda921aace65ce23ad61afea624138a13cea8e2"
 
+  depends_on "pkg-config"
+
   # add the option to build without python
   option "without-python", "Build without python2 support"
   depends_on "python" => :recommended if MacOS.version <= :snow_leopard
@@ -17,6 +19,9 @@ class Lefse < Formula
   option "without-numpy", "Don't install numpy"
   option "without-matplotlib", "Don't install matplotlib"
   option "without-r-packages", "Don't install the required R packages"
+
+  depends_on "freetype" => :recommended if build.with? "matplotlib"
+  depends_on "r" => :optional if build.with? "r-packages"
 
   resource "numpy" do
     url "https://pypi.python.org/packages/source/n/numpy/numpy-1.11.0.tar.gz"
